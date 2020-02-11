@@ -28,3 +28,5 @@ Start the facial recognition: (make sure you are in the python virtualenv)
 python pi_face_recognition.py --cascade haarcascade_frontalface_default.xml --encodings encodings.pickle
 ```
 
+Stop the model by pressing Q
+
