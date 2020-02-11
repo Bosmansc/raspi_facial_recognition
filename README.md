@@ -22,7 +22,7 @@ This command creates the pickle file. (--detection-method cnn argument can be us
 
 ## Run the model
 
-Start the facial recognition:
+Start the facial recognition: (make sure you are in the python virtualenv)
 
 ```
 python pi_face_recognition.py --cascade haarcascade_frontalface_default.xml --encodings encodings.pickle
