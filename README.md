@@ -1,7 +1,9 @@
 # raspi_facial_recognition
 
 This project tries to recognize faces using a raspberry pi. 
-Mainly based on this blogpost:
+
+Based on this blogpost:
+
 https://www.pyimagesearch.com/2018/06/25/raspberry-pi-face-recognition/
 
 ## Preparing the data
