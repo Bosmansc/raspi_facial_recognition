@@ -33,6 +33,7 @@ name_occurrences = collections.Counter(data.get("names"))
 print("Dataset pictures used:")
 print(name_occurrences)
 print("")
+names = []
 
 # initialize the video stream and allow the camera sensor to warm up
 print("[INFO] starting video stream...")
@@ -74,7 +75,7 @@ while True:
 
     # compute the facial embeddings for each face bounding box
     encodings = face_recognition.face_encodings(rgb, boxes)
-    names = []
+    
 
     # loop over the facial embeddings
     for encoding in encodings:
@@ -124,18 +125,17 @@ while True:
        #     os.system("raspistill -vf -hf -o  " + name_now + ".jpg -t 500")
 
         if(probability > 0.8):
-            # update the list of names
-            names.append(name)
+            if(name not in names):
+                # update the list of names
+                names.append(name)
+                print(names)
+                if name != 'Sandra':
+                    robot("Hi " + name)
 
-            # let the raspberry say the name
-            def robot(text):
-                os.system("espeak ' " + text + " ' ")
-
-            if name != 'Sandra':
-                robot("Hi " + name)
-
-            if name == 'Sandra':
-                robot("Hi " + name + " kissies from bae")
+                if name == 'Sandra':
+                    robot("Hi " + name + " kissies from bae")
+            else:
+                robot("I already recognized you " + name)
 
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names):
@@ -143,7 +143,7 @@ while True:
         cv2.rectangle(frame, (left, top), (right, bottom),
             (0, 255, 0), 2)
         y = top - 15 if top - 15 > 15 else top + 15
-        text = "Name: " + name + " Probability: " + round(probability, 2) + "%"
+        text = "Name: " + name + " Probability: " + str(round(probability, 2)) + "%"
         cv2.putText(frame, text, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
             0.75, (0, 255, 0), 2)
 
