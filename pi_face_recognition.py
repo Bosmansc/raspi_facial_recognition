@@ -78,6 +78,7 @@ while True:
         name = "Unknown"
 
         print(data)
+        print(data.get("names"))
 
         # check to see if we have found a match
         if True in matches:
