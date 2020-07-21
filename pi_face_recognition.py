@@ -143,7 +143,7 @@ while True:
         cv2.rectangle(frame, (left, top), (right, bottom),
             (0, 255, 0), 2)
         y = top - 15 if top - 15 > 15 else top + 15
-        text = "Name: " + name + " Probability: " + round(probability, 2) + "%"
+        text = "Name: " + name + " Probability: " + str(round(probability, 2)) + "%"
         cv2.putText(frame, text, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
             0.75, (0, 255, 0), 2)
 
