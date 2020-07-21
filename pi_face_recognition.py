@@ -135,7 +135,7 @@ while True:
                 if name == 'Sandra':
                     robot("Hi " + name + " kissies from bae")
             else:
-                robot("I already recognized you " + name)
+                # robot("I already recognized you " + name)
 
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names):
