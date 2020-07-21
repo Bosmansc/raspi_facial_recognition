@@ -93,6 +93,10 @@ while True:
 
             print("TEEEEEEEEEEEEEEST")
 
+            # Iterate over key/value pairs in dict and print them
+            for name, count in counts.items():
+                print(name, ' : ', count)
+
             # determine the recognized face with the largest number
             # of votes (note: in the event of an unlikely tie Python
             # will select first entry in the dictionary)
