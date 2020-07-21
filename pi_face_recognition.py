@@ -53,6 +53,7 @@ fps = FPS().start()
 # loop over frames from the video file stream
 while True:
 <<<<<<< HEAD
+<<<<<<< HEAD
     # grab the frame from the threaded video stream and resize it
     # to 500px (to speedup processing)
     frame = vs.read()
@@ -160,6 +161,8 @@ while True:
     # update the FPS counter
     fps.update()
 =======
+=======
+>>>>>>> 91ef1a58c2e43e234cf0ff2d07dac566e844d49a
 
     # divide the time in blocks of one minute (otherwise the raspi keeps saying the name for every frame)
     def minute_interval():
@@ -275,7 +278,10 @@ while True:
         threading.Timer(60, minute_interval).start()
 
     minute_interval()
+<<<<<<< HEAD
 >>>>>>> 4391c15c370cc29263da51d6be92b008d800ac2f
+=======
+>>>>>>> 91ef1a58c2e43e234cf0ff2d07dac566e844d49a
 
 # stop the timer and display FPS information
 fps.stop()
