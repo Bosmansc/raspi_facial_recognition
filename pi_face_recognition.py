@@ -47,14 +47,17 @@ def robot(text):
 robot("Hi this is flume")
 time.sleep(2.0)
 
-# start the FPS counter
-fps = FPS().start()
 
-# loop over frames from the video file stream
-while True:
+# divide the time in blocks of one minute (otherwise the raspi keeps saying the name for every frame)
+def minute_interval():
+    # start the FPS counter
+    fps = FPS().start()
 
-    # divide the time in blocks of one minute (otherwise the raspi keeps saying the name for every frame)
-    def minute_interval():
+    # loop over frames from the video file stream
+    while True:
+
+        text = "start new minute interval"
+        os.system("espeak ' " + text + " ' ")
         names = []
 
         # grab the frame from the threaded video stream and resize it
@@ -128,19 +131,28 @@ while True:
            #     name_now = dt_string + name
            #     os.system("raspistill -vf -hf -o  " + name_now + ".jpg -t 500")
 
-            if(probability > 0.8 & name not in names):
-                # update the list of names
-                names.append(name)
+            if(probability > 0.8):
+                
+                if(name not in names):
+                    # update the list of names
+                    names.append(name)
 
-                # let the raspberry say the name
-                def robot(text):
-                    os.system("espeak ' " + text + " ' ")
+                    # let the raspberry say the name
+                    def robot(text):
+                        os.system("espeak ' " + text + " ' ")
 
-                if name != 'Sandra':
-                    robot("Hi " + name)
+                    if name != 'Sandra':
+                        robot("Hi " + name)
 
-                if name == 'Sandra':
-                    robot("Hi " + name + " kissies from bae")
+                    if name == 'Sandra':
+                        robot("Hi " + name + " kissies from bae")
+                
+                else:
+                    def robot(text):
+                        os.system("espeak ' " + text + " ' ")
+
+                    robot("Hi " + name + " I already saw you this minute")
+                    
 
         # loop over the recognized faces
         for ((top, right, bottom, left), name) in zip(boxes, names):
@@ -156,22 +168,21 @@ while True:
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
 
-        # if the `q` key was pressed, break from the loop
-        if key == ord("q"):
-            break
 
         # update the FPS counter
         fps.update()
 
         # schedule the minute_interval function every minute (recognised names are reset that way every minute)
-        threading.Timer(60, minute_interval).start()
+        threading.Timer(10000, minute_interval).start()
 
-    minute_interval()
+    
 
-# stop the timer and display FPS information
-fps.stop()
-print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+    # stop the timer and display FPS information
+    fps.stop()
+    print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
+    print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+
+minute_interval()
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
