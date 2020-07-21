@@ -77,6 +77,8 @@ while True:
             encoding)
         name = "Unknown"
 
+        print(data)
+
         # check to see if we have found a match
         if True in matches:
             # find the indexes of all matched faces then initialize a
@@ -91,8 +93,6 @@ while True:
                 name = data["names"][i]
                 counts[name] = counts.get(name, 0) + 1
 
-            print("TEEEEEEEEEEEEEEST")
-
             # Iterate over key/value pairs in dict and print them
             for name, count in counts.items():
                 print(name, ' : ', count)
@@ -103,10 +103,10 @@ while True:
             name = max(counts, key=counts.get)
             
             # take a picture from the matched face
-            now = datetime.now()
-            dt_string = now.strftime("%d%m%Y_%H:%M:%S")
-            name_now = dt_string + name
-            os.system("raspistill -vf -hf -o  " + name_now + ".jpg -t 500")
+       #     now = datetime.now()
+       #     dt_string = now.strftime("%d%m%Y_%H:%M:%S")
+       #     name_now = dt_string + name
+       #     os.system("raspistill -vf -hf -o  " + name_now + ".jpg -t 500")
         
         # update the list of names
         names.append(name)
