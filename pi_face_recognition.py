@@ -11,6 +11,7 @@ import pickle
 import time
 import cv2
 import os
+import collections
 from datetime import datetime
 
 # construct the argument parser and parse the arguments
@@ -26,6 +27,12 @@ args = vars(ap.parse_args())
 print("[INFO] loading encodings + face detector...")
 data = pickle.loads(open(args["encodings"], "rb").read())
 detector = cv2.CascadeClassifier(args["cascade"])
+
+# explore the existing person images dataset (necesary to improve the model later on)
+name_occurrences = collections.Counter(data.get("names"))
+print("Dataset pictures used:")
+print(name_occurrences)
+print("")
 
 # initialize the video stream and allow the camera sensor to warm up
 print("[INFO] starting video stream...")
@@ -76,12 +83,11 @@ while True:
         matches = face_recognition.compare_faces(data["encodings"],
             encoding)
         name = "Unknown"
-
-        print(data)
-        print(data.get("names"))
+        probability = 0
 
         # check to see if we have found a match
         if True in matches:
+            print("Found matches for the face in the video!")
             # find the indexes of all matched faces then initialize a
             # dictionary to count the total number of times each face
             # was matched
@@ -102,6 +108,14 @@ while True:
             # of votes (note: in the event of an unlikely tie Python
             # will select first entry in the dictionary)
             name = max(counts, key=counts.get)
+            print("The most matched name = " + name)
+
+            print("Dataset occurences = " + str(name_occurrences.get(name)))
+            
+            probability = counts[name]/name_occurrences.get(name)
+            print("Probability = " + str(probability))
+            print("")
+
             
             # take a picture from the matched face
        #     now = datetime.now()
@@ -109,18 +123,19 @@ while True:
        #     name_now = dt_string + name
        #     os.system("raspistill -vf -hf -o  " + name_now + ".jpg -t 500")
         
-        # update the list of names
-        names.append(name)
-        
-        # let the raspberry say the name
-        def robot(text):
-            os.system("espeak ' " + text + " ' ")
-        
-        if name != 'Sandra':
-            robot("Hi " + name)
-        
-        if name == 'Sandra':
-            robot("Hi " + name + " kissies from bae")
+        if(probability > 0.8):
+            # update the list of names
+            names.append(name)
+            
+            # let the raspberry say the name
+            def robot(text):
+                os.system("espeak ' " + text + " ' ")
+            
+            if name != 'Sandra':
+                robot("Hi " + name)
+            
+            if name == 'Sandra':
+                robot("Hi " + name + " kissies from bae")
         
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names):
