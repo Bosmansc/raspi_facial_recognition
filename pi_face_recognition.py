@@ -91,6 +91,8 @@ while True:
                 name = data["names"][i]
                 counts[name] = counts.get(name, 0) + 1
 
+            print("TEEEEEEEEEEEEEEST")
+
             # determine the recognized face with the largest number
             # of votes (note: in the event of an unlikely tie Python
             # will select first entry in the dictionary)
