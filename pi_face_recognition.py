@@ -134,7 +134,8 @@ while True:
 
                 if name == 'Sandra':
                     robot("Hi " + name + " kissies from bae")
-            else:
+            #else:
+             #   pass
                 # robot("I already recognized you " + name)
 
     # loop over the recognized faces
