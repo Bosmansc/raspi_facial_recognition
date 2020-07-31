@@ -108,18 +108,18 @@ def video():
            #     os.system("raspistill -vf -hf -o  " + name_now + ".jpg -t 500")
 
             if(probability > 0.8):
-                if(name not in names):
+                if(name not in names): # to avoid that the raspi keeps recognizing the same person and repeats the name
                     # update the list of names
                     names.append(name)
-                    print(names)
-                    if name != 'Sandra':
-                        robot("Hi " + name)
 
                     if name == 'Sandra':
                         robot("Hi " + name + " kissies from bae")
-                #else:
-                 #   pass
-                    # robot("I already recognized you " + name)
+                    elif name =='Ellen':
+                        robot("Hi " + name + " thanks for feeding our cat!")
+                    elif name =='Helene':
+                        robot("Hi " + name + " thanks for taking care of our cat!")
+                    else:
+                        robot(f"Hi {name}")
 
         # loop over the recognized faces
         for ((top, right, bottom, left), name) in zip(boxes, names):
