@@ -156,10 +156,7 @@ def empty_names():
 
 
 def empty_names_repeat():
-    print(time.ctime())
-    print(names)
     empty_names()
-    print(names)
     threading.Timer(WAIT_SECONDS, empty_names_repeat).start()
 
 
