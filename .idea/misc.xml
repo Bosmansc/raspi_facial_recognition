@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="JDK_1.8.0" project-jdk-type="JavaSDK" />
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/Documents/Thesis/StockTrading-master" value="PREVIEW" />
+        <entry key="$USER_HOME$/Flink/flink-jpmml-master" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+</project>
